@@ -139,7 +139,7 @@ INTERESTING = re.compile(r"https?://|/api/|\.so|\.dll|error|fail|token|config|us
 def extract_binary(p: Path) -> list[Chunk]:
     data = p.read_bytes()
     chunks = []
-    info = run(["file", "-b", str(p)]) or f"{len(data)} bytes (comando `file` indisponível)"
+    info = run(["file", "-bL", str(p)]) or f"{len(data)} bytes (comando `file` indisponível)"
     chunks.append(Chunk(f"{p.name} [tipo]", f"{info.strip()}\nTamanho: {len(data)} bytes", 3.0))
 
     libs = run(["objdump", "-p", str(p)])
